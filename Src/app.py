@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 st.set_page_config(
     page_title="Hay Day Production Optimizer",
@@ -12,8 +13,18 @@ st.set_page_config(
 # ==========================================================
 
 @st.cache_data
+
 def load_data():
-    return pd.read_excel("../Data/products.xlsx")
+    BASE_DIR = Path(__file__).resolve().parent
+
+    DATA_FILE = (
+        BASE_DIR.parent /
+        "Data" /
+        "products.xlsx"
+    )
+
+    df = pd.read_excel(DATA_FILE)
+    return df
 
 df = load_data()
 
