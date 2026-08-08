@@ -367,7 +367,7 @@ if st.button("Recommend Products"):
             f"Best Products For {available_hours} Hours"
         )
         st.warning(
-            "Note: This is a simplified calculation and may not account for all factors. For example slots available in your machine may vary."
+            "Note: This is a simplified calculation and may not account for all factors. For example, number of slots in your machine may vary."
         )
 
         st.dataframe(
