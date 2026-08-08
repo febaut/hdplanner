@@ -100,7 +100,7 @@ def evaluate_product(row, inventory):
         else 1
     )
 
-    max_stacks = (
+    max_units = (
         min(max_possible)
         if max_possible
         else 0
@@ -123,7 +123,7 @@ def evaluate_product(row, inventory):
         "missing_qty": missing_qty,
         "missing_ingredients": ", ".join(missing_list),
         "availability_score": round(availability_score, 3),
-        "max_stacks": max_stacks,
+        "max_units": max_units,
         "ingredient_overlap": overlap
     })
 
@@ -212,7 +212,7 @@ if st.button("Recommend Products"):
 
     eligible["possible_profit"] = (
         eligible["stack_profit"] *
-        eligible["max_stacks"]
+        eligible["max_units"]
     )
 
     eligible["overnight_idle"] = (
@@ -255,6 +255,11 @@ if st.button("Recommend Products"):
             ascending=False
         ).head(5)
 
+        ready["xp"] = ready["xp"].astype(int) * ready["max_units"]
+        ready["time_min"] = ready["time_min"] * ready["max_units"]
+        ready["time_hours"] = ready["time_min"] / 60
+        ready["total_profit"] = (ready["stack_profit"])/10 * ready["max_units"]
+
         st.subheader("Ready To Produce")
 
         st.dataframe(
@@ -266,7 +271,9 @@ if st.button("Recommend Products"):
                     "stack_profit_hr",
                     "xp",
                     "time_min",
-                    "max_stacks"
+                    "time_hours",
+                    "total_profit",
+                    "max_units"
                 ]
             ],
             use_container_width=True
