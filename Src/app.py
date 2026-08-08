@@ -264,7 +264,7 @@ if st.button("Recommend Products"):
                     "source",
                     "stack_profit",
                     "stack_profit_hr",
-                    "xp"*10,
+                    "xp",
                     "time_min",
                     "max_stacks"
                 ]
